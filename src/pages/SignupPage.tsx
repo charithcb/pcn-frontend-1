@@ -1,20 +1,20 @@
 import { useState } from "react";
 import { Button, TextInput, Label, Card } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "../lib/axios";
-import useAuthStore from "../stores/authStore";
+import axios from "../api/axios";
+import { useAuthStore } from "../store/authStore";
 
 export default function SignupPage() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { setUser } = useAuthStore();
+    const { login } = useAuthStore();
     const navigate = useNavigate();
 
     const handleSignup = async () => {
         try {
             const res = await axios.post("/auth/register", { name, email, password });
-            setUser(res.data.user);
+            login(res.data.token, res.data.user);
             navigate("/dashboard");
         } catch (err) {
             console.error(err);
