@@ -1,15 +1,15 @@
-import { Navbar, Button } from "flowbite-react";
+import { Navbar, NavbarBrand, NavbarToggle, Button } from "flowbite-react";
 import { Link } from "react-router-dom";
 
 export default function LandingPage() {
     return (
         <div className="min-h-screen bg-white">
             <Navbar fluid rounded className="border-b shadow-sm">
-                <Navbar.Brand href="/">
-          <span className="self-center whitespace-nowrap text-2xl font-semibold text-gray-900">
-            PCN Inventory
-          </span>
-                </Navbar.Brand>
+                <NavbarBrand href="/">
+                    <span className="self-center whitespace-nowrap text-2xl font-semibold text-gray-900">
+                        PCN Inventory
+                    </span>
+                </NavbarBrand>
 
                 <div className="flex md:order-2 gap-2">
                     <Link to="/login">
@@ -19,8 +19,7 @@ export default function LandingPage() {
                     <Link to="/signup">
                         <Button color="purple">Sign Up</Button>
                     </Link>
-
-                    <Navbar.Toggle />
+                    <NavbarToggle />
                 </div>
             </Navbar>
 
