@@ -1,6 +1,15 @@
 import { useEffect, useState } from "react";
-import { Table, Badge, Spinner } from "flowbite-react";
-import axios from "../lib/axios";
+import {
+    Badge,
+    Spinner,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeadCell,
+    TableRow,
+} from "flowbite-react";
+import axios from "../api/axios";
 
 interface Reservation {
     id: string;
@@ -37,33 +46,35 @@ export default function MyReservationsPage() {
                 <Spinner />
             ) : (
                 <Table hoverable>
-                    <Table.Head>
-                        <Table.HeadCell>ID</Table.HeadCell>
-                        <Table.HeadCell>Vehicle</Table.HeadCell>
-                        <Table.HeadCell>Status</Table.HeadCell>
-                        <Table.HeadCell>Date</Table.HeadCell>
-                    </Table.Head>
-                    <Table.Body className="divide-y">
+                    <TableHead>
+                        <TableRow>
+                            <TableHeadCell>ID</TableHeadCell>
+                            <TableHeadCell>Vehicle</TableHeadCell>
+                            <TableHeadCell>Status</TableHeadCell>
+                            <TableHeadCell>Date</TableHeadCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody className="divide-y">
                         {reservations.map((r) => (
-                            <Table.Row key={r.id}>
-                                <Table.Cell className="font-mono text-sm">{r.id}</Table.Cell>
-                                <Table.Cell>{r.vehicle}</Table.Cell>
-                                <Table.Cell>
+                            <TableRow key={r.id}>
+                                <TableCell className="font-mono text-sm">{r.id}</TableCell>
+                                <TableCell>{r.vehicle}</TableCell>
+                                <TableCell>
                                     <Badge color="info">{r.status}</Badge>
-                                </Table.Cell>
-                                <Table.Cell>
+                                </TableCell>
+                                <TableCell>
                                     {new Date(r.reservedDate).toLocaleDateString()}
-                                </Table.Cell>
-                            </Table.Row>
+                                </TableCell>
+                            </TableRow>
                         ))}
                         {reservations.length === 0 && (
-                            <Table.Row>
-                                <Table.Cell colSpan={4} className="text-center text-gray-500">
+                            <TableRow>
+                                <TableCell colSpan={4} className="text-center text-gray-500">
                                     No reservations yet.
-                                </Table.Cell>
-                            </Table.Row>
+                                </TableCell>
+                            </TableRow>
                         )}
-                    </Table.Body>
+                    </TableBody>
                 </Table>
             )}
         </div>

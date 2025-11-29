@@ -1,6 +1,15 @@
 import { useEffect, useState } from "react";
-import { Table, Badge, Spinner } from "flowbite-react";
-import axios from "../lib/axios";
+import {
+    Badge,
+    Spinner,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeadCell,
+    TableRow,
+} from "flowbite-react";
+import axios from "../api/axios";
 
 interface Appointment {
     id: string;
@@ -37,33 +46,35 @@ export default function MyAppointmentsPage() {
                 <Spinner />
             ) : (
                 <Table hoverable>
-                    <Table.Head>
-                        <Table.HeadCell>Date</Table.HeadCell>
-                        <Table.HeadCell>Time</Table.HeadCell>
-                        <Table.HeadCell>Staff</Table.HeadCell>
-                        <Table.HeadCell>Status</Table.HeadCell>
-                    </Table.Head>
-                    <Table.Body className="divide-y">
+                    <TableHead>
+                        <TableRow>
+                            <TableHeadCell>Date</TableHeadCell>
+                            <TableHeadCell>Time</TableHeadCell>
+                            <TableHeadCell>Staff</TableHeadCell>
+                            <TableHeadCell>Status</TableHeadCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody className="divide-y">
                         {appointments.map((a) => (
-                            <Table.Row key={a.id}>
-                                <Table.Cell>
+                            <TableRow key={a.id}>
+                                <TableCell>
                                     {new Date(a.date).toLocaleDateString()}
-                                </Table.Cell>
-                                <Table.Cell>{a.time}</Table.Cell>
-                                <Table.Cell>{a.staffName}</Table.Cell>
-                                <Table.Cell>
+                                </TableCell>
+                                <TableCell>{a.time}</TableCell>
+                                <TableCell>{a.staffName}</TableCell>
+                                <TableCell>
                                     <Badge color="info">{a.status}</Badge>
-                                </Table.Cell>
-                            </Table.Row>
+                                </TableCell>
+                            </TableRow>
                         ))}
                         {appointments.length === 0 && (
-                            <Table.Row>
-                                <Table.Cell colSpan={4} className="text-center text-gray-500">
+                            <TableRow>
+                                <TableCell colSpan={4} className="text-center text-gray-500">
                                     No appointments yet.
-                                </Table.Cell>
-                            </Table.Row>
+                                </TableCell>
+                            </TableRow>
                         )}
-                    </Table.Body>
+                    </TableBody>
                 </Table>
             )}
         </div>

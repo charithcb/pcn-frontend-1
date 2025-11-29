@@ -1,6 +1,15 @@
 import { useEffect, useState } from "react";
-import { Table, Badge, Spinner } from "flowbite-react";
-import axios from "../lib/axios";
+import {
+    Badge,
+    Spinner,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeadCell,
+    TableRow,
+} from "flowbite-react";
+import axios from "../api/axios";
 
 interface Order {
     id: string;
@@ -36,33 +45,35 @@ export default function MyOrdersPage() {
                 <Spinner />
             ) : (
                 <Table hoverable>
-                    <Table.Head>
-                        <Table.HeadCell>Order ID</Table.HeadCell>
-                        <Table.HeadCell>Vehicle</Table.HeadCell>
-                        <Table.HeadCell>Status</Table.HeadCell>
-                        <Table.HeadCell>Created</Table.HeadCell>
-                    </Table.Head>
-                    <Table.Body className="divide-y">
+                    <TableHead>
+                        <TableRow>
+                            <TableHeadCell>Order ID</TableHeadCell>
+                            <TableHeadCell>Vehicle</TableHeadCell>
+                            <TableHeadCell>Status</TableHeadCell>
+                            <TableHeadCell>Created</TableHeadCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody className="divide-y">
                         {orders.map((o) => (
-                            <Table.Row key={o.id}>
-                                <Table.Cell className="font-mono text-sm">{o.id}</Table.Cell>
-                                <Table.Cell>{o.vehicle}</Table.Cell>
-                                <Table.Cell>
+                            <TableRow key={o.id}>
+                                <TableCell className="font-mono text-sm">{o.id}</TableCell>
+                                <TableCell>{o.vehicle}</TableCell>
+                                <TableCell>
                                     <Badge color="info">{o.status}</Badge>
-                                </Table.Cell>
-                                <Table.Cell>
+                                </TableCell>
+                                <TableCell>
                                     {new Date(o.createdAt).toLocaleDateString()}
-                                </Table.Cell>
-                            </Table.Row>
+                                </TableCell>
+                            </TableRow>
                         ))}
                         {orders.length === 0 && (
-                            <Table.Row>
-                                <Table.Cell colSpan={4} className="text-center text-gray-500">
+                            <TableRow>
+                                <TableCell colSpan={4} className="text-center text-gray-500">
                                     No orders yet.
-                                </Table.Cell>
-                            </Table.Row>
+                                </TableCell>
+                            </TableRow>
                         )}
-                    </Table.Body>
+                    </TableBody>
                 </Table>
             )}
         </div>
