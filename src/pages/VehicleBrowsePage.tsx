@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card, TextInput, Select, Button, Spinner } from "flowbite-react";
-import axios from "../lib/axios";
+import axios from "../api/axios";
 
 interface Vehicle {
     id: string;

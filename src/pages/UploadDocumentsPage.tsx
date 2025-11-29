@@ -1,6 +1,18 @@
-import { useEffect, useState, ChangeEvent } from "react";
-import { Card, Button, Table, Badge, Spinner } from "flowbite-react";
-import axios from "../lib/axios";
+import { useEffect, useState } from "react";
+import type { ChangeEvent } from "react";
+import {
+    Badge,
+    Button,
+    Card,
+    Spinner,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeadCell,
+    TableRow,
+} from "flowbite-react";
+import axios from "../api/axios";
 
 interface DocumentRow {
     id: string;
@@ -91,35 +103,37 @@ export default function UploadDocumentsPage() {
                 <Spinner />
             ) : (
                 <Table hoverable>
-                    <Table.Head>
-                        <Table.HeadCell>ID</Table.HeadCell>
-                        <Table.HeadCell>Type</Table.HeadCell>
-                        <Table.HeadCell>Verified</Table.HeadCell>
-                        <Table.HeadCell>Uploaded</Table.HeadCell>
-                    </Table.Head>
-                    <Table.Body className="divide-y">
+                    <TableHead>
+                        <TableRow>
+                            <TableHeadCell>ID</TableHeadCell>
+                            <TableHeadCell>Type</TableHeadCell>
+                            <TableHeadCell>Verified</TableHeadCell>
+                            <TableHeadCell>Uploaded</TableHeadCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody className="divide-y">
                         {docs.map((d) => (
-                            <Table.Row key={d.id}>
-                                <Table.Cell className="font-mono text-sm">{d.id}</Table.Cell>
-                                <Table.Cell>{d.type}</Table.Cell>
-                                <Table.Cell>
+                            <TableRow key={d.id}>
+                                <TableCell className="font-mono text-sm">{d.id}</TableCell>
+                                <TableCell>{d.type}</TableCell>
+                                <TableCell>
                                     <Badge color={d.verified ? "success" : "warning"}>
                                         {d.verified ? "Verified" : "Pending"}
                                     </Badge>
-                                </Table.Cell>
-                                <Table.Cell>
+                                </TableCell>
+                                <TableCell>
                                     {new Date(d.createdAt).toLocaleDateString()}
-                                </Table.Cell>
-                            </Table.Row>
+                                </TableCell>
+                            </TableRow>
                         ))}
                         {docs.length === 0 && (
-                            <Table.Row>
-                                <Table.Cell colSpan={4} className="text-center text-gray-500">
+                            <TableRow>
+                                <TableCell colSpan={4} className="text-center text-gray-500">
                                     No documents uploaded yet.
-                                </Table.Cell>
-                            </Table.Row>
+                                </TableCell>
+                            </TableRow>
                         )}
-                    </Table.Body>
+                    </TableBody>
                 </Table>
             )}
         </div>

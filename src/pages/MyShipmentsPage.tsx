@@ -1,6 +1,15 @@
 import { useEffect, useState } from "react";
-import { Table, Badge, Spinner } from "flowbite-react";
-import axios from "../lib/axios";
+import {
+    Badge,
+    Spinner,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeadCell,
+    TableRow,
+} from "flowbite-react";
+import axios from "../api/axios";
 
 interface Shipment {
     id: string;
@@ -38,37 +47,35 @@ export default function MyShipmentsPage() {
                 <Spinner />
             ) : (
                 <Table hoverable>
-                    <Table.Head>
-                        <Table.HeadCell>Tracking ID</Table.HeadCell>
-                        <Table.HeadCell>Order</Table.HeadCell>
-                        <Table.HeadCell>Vehicle</Table.HeadCell>
-                        <Table.HeadCell>Status</Table.HeadCell>
-                        <Table.HeadCell>Last Updated</Table.HeadCell>
-                    </Table.Head>
-                    <Table.Body className="divide-y">
+                    <TableHead>
+                        <TableRow>
+                            <TableHeadCell>Tracking ID</TableHeadCell>
+                            <TableHeadCell>Order</TableHeadCell>
+                            <TableHeadCell>Vehicle</TableHeadCell>
+                            <TableHeadCell>Status</TableHeadCell>
+                            <TableHeadCell>Last Updated</TableHeadCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody className="divide-y">
                         {shipments.map((s) => (
-                            <Table.Row key={s.id}>
-                                <Table.Cell className="font-mono text-sm">{s.id}</Table.Cell>
-                                <Table.Cell className="font-mono text-xs">
-                                    {s.orderId}
-                                </Table.Cell>
-                                <Table.Cell>{s.vehicle}</Table.Cell>
-                                <Table.Cell>
+                            <TableRow key={s.id}>
+                                <TableCell className="font-mono text-sm">{s.id}</TableCell>
+                                <TableCell className="font-mono text-xs">{s.orderId}</TableCell>
+                                <TableCell>{s.vehicle}</TableCell>
+                                <TableCell>
                                     <Badge color="purple">{s.status}</Badge>
-                                </Table.Cell>
-                                <Table.Cell>
-                                    {new Date(s.lastUpdated).toLocaleString()}
-                                </Table.Cell>
-                            </Table.Row>
+                                </TableCell>
+                                <TableCell>{new Date(s.lastUpdated).toLocaleString()}</TableCell>
+                            </TableRow>
                         ))}
                         {shipments.length === 0 && (
-                            <Table.Row>
-                                <Table.Cell colSpan={5} className="text-center text-gray-500">
+                            <TableRow>
+                                <TableCell colSpan={5} className="text-center text-gray-500">
                                     No active shipments.
-                                </Table.Cell>
-                            </Table.Row>
+                                </TableCell>
+                            </TableRow>
                         )}
-                    </Table.Body>
+                    </TableBody>
                 </Table>
             )}
         </div>
