@@ -1,7 +1,11 @@
 import axios from "axios";
 
+const baseURL =
+    import.meta.env.VITE_API_BASE_URL || "https://pcninventory-production.up.railway.app/api";
+
 const instance = axios.create({
-    baseURL: "http://localhost:5000/api",
+    baseURL,
+    withCredentials: true,
 });
 
 instance.interceptors.request.use((config) => {

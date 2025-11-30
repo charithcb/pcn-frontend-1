@@ -1,4 +1,5 @@
 import { Outlet, Route, Routes } from "react-router-dom";
+import AdminLayout from "./layouts/AdminLayout";
 import CustomerLayout from "./layouts/CustomerLayout";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
@@ -11,6 +12,11 @@ import UploadDocumentsPage from "./pages/UploadDocumentsPage";
 import MyReservationsPage from "./pages/MyReservationsPage";
 import MyAppointmentsPage from "./pages/MyAppointmentsPage";
 import ProtectedRoute from "./router/ProtectedRoute";
+import UnauthorizedPage from "./pages/UnauthorizedPage";
+import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
+import AdminInventoryPage from "./pages/admin/AdminInventoryPage";
+import AdminOrdersPage from "./pages/admin/AdminOrdersPage";
+import AdminUsersPage from "./pages/admin/AdminUsersPage";
 
 const CustomerShell = () => (
     <ProtectedRoute>
@@ -20,12 +26,21 @@ const CustomerShell = () => (
     </ProtectedRoute>
 );
 
+const AdminShell = () => (
+    <ProtectedRoute roles={["admin"]}>
+        <AdminLayout>
+            <Outlet />
+        </AdminLayout>
+    </ProtectedRoute>
+);
+
 export default function App() {
     return (
         <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
+            <Route path="/unauthorized" element={<UnauthorizedPage />} />
 
             <Route element={<CustomerShell />}>
                 <Route path="/dashboard" element={<CustomerDashboardPage />} />
@@ -35,6 +50,13 @@ export default function App() {
                 <Route path="/documents" element={<UploadDocumentsPage />} />
                 <Route path="/reservations" element={<MyReservationsPage />} />
                 <Route path="/appointments" element={<MyAppointmentsPage />} />
+            </Route>
+
+            <Route element={<AdminShell />}>
+                <Route path="/admin" element={<AdminDashboardPage />} />
+                <Route path="/admin/inventory" element={<AdminInventoryPage />} />
+                <Route path="/admin/orders" element={<AdminOrdersPage />} />
+                <Route path="/admin/users" element={<AdminUsersPage />} />
             </Route>
 
             <Route path="*" element={<div className="p-8">Page not found</div>} />
