@@ -10,28 +10,25 @@ import {
 } from "flowbite-react";
 import { useAuthStore } from "../store/authStore";
 
-interface CustomerLayoutProps {
+interface AdminLayoutProps {
     children: ReactNode;
 }
 
-export default function CustomerLayout({ children }: CustomerLayoutProps) {
+export default function AdminLayout({ children }: AdminLayoutProps) {
     const { user, logout } = useAuthStore();
 
     return (
         <div className="min-h-screen bg-gray-50 flex text-gray-900">
             <aside className="w-64 hidden md:block border-r bg-white">
-                <Sidebar aria-label="Customer navigation" className="h-full">
-                    <div className="px-4 py-3 text-lg font-semibold">PCN Inventory</div>
+                <Sidebar aria-label="Admin navigation" className="h-full">
+                    <div className="px-4 py-3 text-lg font-semibold">Admin Console</div>
 
                     <SidebarItems>
                         <SidebarItemGroup>
-                            <SidebarItem href="/dashboard">Dashboard</SidebarItem>
-                            <SidebarItem href="/vehicles">Vehicles</SidebarItem>
-                            <SidebarItem href="/orders">My Orders</SidebarItem>
-                            <SidebarItem href="/shipments">My Shipments</SidebarItem>
-                            <SidebarItem href="/documents">Documents</SidebarItem>
-                            <SidebarItem href="/reservations">Reservations</SidebarItem>
-                            <SidebarItem href="/appointments">Appointments</SidebarItem>
+                            <SidebarItem href="/admin">Dashboard</SidebarItem>
+                            <SidebarItem href="/admin/inventory">Inventory</SidebarItem>
+                            <SidebarItem href="/admin/orders">Orders</SidebarItem>
+                            <SidebarItem href="/admin/users">Users</SidebarItem>
                         </SidebarItemGroup>
                     </SidebarItems>
                 </Sidebar>
@@ -39,17 +36,19 @@ export default function CustomerLayout({ children }: CustomerLayoutProps) {
 
             <div className="flex-1 flex flex-col">
                 <Navbar className="border-b bg-white">
-                    <NavbarBrand href="/dashboard">
+                    <NavbarBrand href="/admin">
                         <span className="self-center whitespace-nowrap text-xl font-semibold">
-                            Customer Portal
+                            PCN Inventory Admin
                         </span>
                     </NavbarBrand>
 
                     <div className="flex items-center gap-4">
-                        <span className="text-sm text-gray-600">{user?.name ?? user?.email}</span>
+                        <span className="text-sm text-gray-600">
+                            {user?.name ?? user?.email ?? "Admin"}
+                        </span>
                         <button
                             onClick={logout}
-                            className="text-sm text-blue-600 hover:underline"
+                            className="text-sm text-purple-700 hover:underline"
                         >
                             Logout
                         </button>
